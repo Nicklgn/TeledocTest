@@ -1,0 +1,68 @@
+﻿@model TeledocTest.Models.Client
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Изменение юр. лица</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Inn" class="control-label"></label>
+                <input asp-for="Inn" class="form-control" />
+                <span asp-validation-for="Inn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UpdateDate" class="form-control" />
+                <span asp-validation-for="UpdateDate" class="text-danger"></span>
+            </div>
+            <h4>
+                @Html.DisplayNameFor(model => model.Founders)
+            </h4>
+            <div class="form-group">
+                <select multiple name="selectedFounders">
+                    @foreach (var f in ViewBag.AllFounders)
+                    {
+                        @if (Model.Founders.Contains(f))
+                        {
+                            <option selected value=@f.Id.ToString()>@f.FullName</option>
+                        }
+                        else
+                        {
+                            <option value=@f.Id.ToString()>@f.FullName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку клиентов</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
